@@ -1,0 +1,412 @@
+body {
+  word-wrap: break-word;
+}
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+dwzq3-nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  font-family: "Hiragino Sans GB", "microsoft yahei", simsun;
+  -webkit-font-smoothing: antialiased;
+}
+fieldset,
+img,
+iframe {
+  border: 0 none;
+}
+:focus {
+  outline: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+i,
+th,
+var,
+optgroup {
+  font-style: normal;
+  font-weight: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+code,
+kbd,
+samp,
+tt,
+sup,
+sub,
+small,
+input,
+button,
+textarea,
+select {
+  font-size: 100%;
+}
+abbr,
+acronym {
+  border: 0 none;
+  font-variant: normal;
+}
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+textarea {
+  overflow: auto;
+}
+button {
+  width: auto;
+  cursor: pointer;
+  overflow: visible;
+}
+input[type=reset],
+input[type=button],
+input[type=submit] {
+  cursor: pointer;
+  overflow: visible;
+}
+ol,
+ul,
+menu {
+  list-style: none outside none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+caption,
+th {
+  text-align: left;
+}
+sup {
+  vertical-align: text-top;
+}
+sub {
+  vertical-align: text-bottom;
+}
+:link,
+:visited,
+ins {
+  text-decoration: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+* + html img {
+  -ms-interpolation-mode: bicubic;
+}
+mark {
+  background-color: #ff6;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title],
+dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+input,
+select,
+button {
+  vertical-align: middle;
+}
+a,
+a:hover,
+a:active {
+  color: #000;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+[v-cloak] {
+  display: none;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#app .bg-image-container {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+#app .content-box {
+  position: relative;
+  color: #fff;
+  font-size: 0.28rem;
+  user-select: none;
+  z-index: 2;
+}
+#app .content-box .title {
+  text-align: center;
+}
+#app .content-box .days-count {
+  margin: 0.1rem 0;
+  text-align: center;
+}
+#app .content-box .days-count .big {
+  font-size: 1rem;
+}
+#app .content-box .time-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.4rem;
+}
+#app .content-box .time-content .box {
+  position: relative;
+  width: 30%;
+  text-align: center;
+}
+#app .content-box .time-content .box:after {
+  content: attr(data-text);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+#app .content-box .time-content .box.second-box:after,
+#app .content-box .time-content .box.show-after:after {
+  opacity: 1;
+}
+#app .content-box .time-content .box .animation-el {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  z-index: 2;
+}
+#app .airplane-box {
+  position: fixed;
+  width: 60px;
+  left: 0;
+  top: 70vh;
+  transform: translateX(-100%);
+  transition: all 30s ease-in-out;
+}
+#app .airplane-box.end {
+  left: 120%;
+  top: 10vh;
+}
+#app .airplane-box svg {
+  width: 100%;
+  height: 100%;
+}
+#app .shooting-star-box {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 0.6s linear;
+  z-index: 3;
+}
+#app .shooting-star-box svg {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  filter: blur(1px);
+}
+#app .change-time-container {
+  font-size: 0.28rem;
+  position: absolute;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.08rem;
+  color: #333;
+  z-index: 3;
+}
+#app .change-time-container svg {
+  position: absolute;
+  width: 0.3rem;
+  height: 0.3rem;
+  right: 0.25rem;
+  top: 0.25rem;
+}
+#app .change-time-container .title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.32rem;
+}
+#app .change-time-container .footer {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+#app .change-time-container .footer span {
+  width: 2rem;
+  display: inline-block;
+  background: red;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  color: #fff;
+  border-radius: 0.08rem;
+  cursor: pointer;
+}
+@media screen and (min-width: 1024px) {
+  #app .content-box {
+    font-size: 16px;
+    display: flex;
+    align-items: flex-start;
+  }
+  #app .content-box .title {
+    font-size: 18px;
+    margin-right: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(calc(-100% - 20px), calc(-100% - 10px));
+  }
+  #app .content-box .days-count {
+    display: flex;
+    flex-flow: column;
+    margin-right: 20px;
+  }
+  #app .content-box .days-count .big {
+    font-size: 48px;
+    cursor: pointer;
+  }
+  #app .content-box .time-content {
+    width: 140px;
+    height: 64px;
+    font-size: 24px;
+  }
+  #app .content-box:before {
+    content: '';
+    width: calc(100% + 166px);
+    position: absolute;
+    height: 2px;
+    background: #fff;
+    top: 0;
+    left: -166px;
+  }
+  #app .change-time-container {
+    font-size: 14px;
+    padding: 36px 46px;
+    border-radius: 4px;
+  }
+  #app .change-time-container svg {
+    width: 16px;
+    height: 16px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  #app .change-time-container svg:hover {
+    transform: rotate(180deg);
+  }
+  #app .change-time-container .title {
+    font-size: 16px;
+    margin-bottom: 36px;
+  }
+  #app .change-time-container .input-content input {
+    line-height: 30px;
+  }
+  #app .change-time-container .footer {
+    margin-top: 36px;
+  }
+  #app .change-time-container .footer span {
+    width: 100px;
+    line-height: 36px;
+    height: 36px;
+    font-size: 14px;
+    border-radius: 4px;
+    background: #03A9F4;
+  }
+}

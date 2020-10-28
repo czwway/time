@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奥特曼 · 倒计时</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style/index.css?v=0909va">
+</head>
+
+<body>
+
+    <div id="app" class="app">
+
+        <div class="bg-image-container" :style="appStyle"  
+        @mousedown="mousedownEv" @touchstart="mousedownEv" 
+        @mousemove='mousemoveEv' @touchmove='mousemoveEv'
+        @mouseup='mouseupEv' @touchend='mouseupEv'></div>
+
+        <div class="content-box">
+            <p class="title">距离回归M78还有</p>
+
+            <div class="days-count">
+                <span class="big" id="day" @click="isShowChangeTime = true">0</span>
+                <span class="text">天</span>
+            </div>
+
+            <div class="time-content">
+                <div id="hour_box" class="box" data-text="0"></div>
+                <span>:</span>
+                <div id="minute_box" class="box" data-text="0"></div>
+                <span>:</span>
+                <div id="second_box" class="box second-box" data-text="0"></div>
+            </div>
+        </div>
+
+        <!-- 飞机动画 -->
+        <div class="airplane-box">
+            <svg t="1599557063058" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"p-id="6316" width="300" height="300"><path d="M827.904 391.8848c2.3552-11.0592-34.7136-38.1952-70.3488-43.52s-77.824 12.1856-148.992 61.44C488.3456 492.6464 381.0304 568.4224 345.2928 593.92a22.7328 22.7328 0 0 1-25.6 0c-22.1184-14.336-66.7648-40.96-105.8816-37.1712a2.9696 2.9696 0 0 0-1.7408 5.12s77.5168 75.8784 92.16 87.8592 48.9472 13.1072 67.3792 2.048 453.12-245.1456 456.2944-259.8912z" fill="#FFFFFF" p-id="6319"></path><path d="M560.3328 442.7776l-213.0944-112.64a19.0464 19.0464 0 0 0-17.7152 3.6864 17.7152 17.7152 0 0 0-2.8672 16.896l156.3648 146.1248z" fill="#FFFFFF" p-id="6320"></path><path d="M775.9872 352.8704a154.112 154.112 0 0 0-39.424 26.624c-3.4816 3.3792-7.9872 6.5536-2.2528 10.24s9.4208 5.7344 15.6672 2.56a387.6864 387.6864 0 0 1 57.0368-24.6784 146.5344 146.5344 0 0 0-31.0272-14.7456z" fill="#42A5F5" p-id="6321"></path><path d="M513.536 475.4432a232.1408 232.1408 0 0 1-120.2176-62.5664l89.6 83.968zM822.8864 381.1328S537.2928 563.2 358.4 657.408a68.7104 68.7104 0 0 0 13.6192-5.4272c135.5776-73.3184 446.2592-244.5312 456.0896-260.096a12.9024 12.9024 0 0 0-5.2224-10.752z" fill="#FFA726" p-id="6322"></path><path d="M753.7664 364.3392a135.168 135.168 0 0 1 18.3296 17.6128 40.96 40.96 0 0 1-4.1984 1.9456l-19.5584-16.4864z" fill="#FFFFFF" p-id="6323"></path><path d="M485.7856 535.552m-7.2704 0a7.2704 7.2704 0 1 0 14.5408 0 7.2704 7.2704 0 1 0-14.5408 0Z" fill="#42A5F5" p-id="6324"></path><path d="M519.4752 514.56m-7.2704 0a7.2704 7.2704 0 1 0 14.5408 0 7.2704 7.2704 0 1 0-14.5408 0Z" fill="#42A5F5" p-id="6325"></path><path d="M553.0624 492.8512m-7.2704 0a7.2704 7.2704 0 1 0 14.5408 0 7.2704 7.2704 0 1 0-14.5408 0Z" fill="#42A5F5" p-id="6326"></path><path d="M585.8304 471.4496m-7.2704 0a7.2704 7.2704 0 1 0 14.5408 0 7.2704 7.2704 0 1 0-14.5408 0Z" fill="#42A5F5" p-id="6327"></path><path d="M622.592 449.7408m-7.2704 0a7.2704 7.2704 0 1 0 14.5408 0 7.2704 7.2704 0 1 0-14.5408 0Z" fill="#42A5F5" p-id="6328"></path></svg>
+        </div>
+
+        <div class="shooting-star-box" ref="shootingStar" v-if="isShowStar" :style="starStyle" v-cloak>
+            <svg t="1599616475498" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7785" width="64" height="64"><path d="M511.424 68.8a170.496 170.496 0 0 1 172.608 168.576c1.216 94.272-168.64 716.544-168.64 716.544S343.936 335.552 342.784 241.408a170.56 170.56 0 0 1 168.64-172.608z" p-id="7786" fill="#f4ea2a"></path></svg>
+        </div>
+
+        <div class="change-time-container" v-if="isShowChangeTime" v-cloak>
+            <svg @click="isShowChangeTime = false" t="1599636658371" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8864" width="64" height="64"><path d="M963.891365 868.834515a56.219379 56.219379 0 0 1-71.735927 85.903211l-7.870713-6.521448L31.886507 95.705621a56.219379 56.219379 0 0 1 71.735927-86.015649l7.870713 6.521448 852.510657 852.510656z" p-id="8865" fill="#707070"></path><path d="M31.886507 868.834515a56.219379 56.219379 0 0 0 71.623488 85.903211l7.870713-6.521448L963.778926 95.705621a56.219379 56.219379 0 0 0-71.735927-86.015649l-7.870713 6.521448L31.886507 868.722076z" p-id="8866" fill="#707070"></path></svg>
+            <p class="title">修改倒计时 结束 时间</p>
+            <div class="input-content">
+                <input type="date" :value="endTime.split(' ')[0].replace(/\//g,'-')">
+                <input type="time" :value="endTime.split(' ')[1]">
+            </div>
+            <div class="footer">
+                <span>确定修改</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let app = new Vue({
+
+            el: '#app',
+
+            data() {
+                return {
+                    isMobile: true,
+
+                    diffTiem: 0,
+
+                    index: 0,
+                    
+                    endTime: '2021/01/31 18:00:00',
+
+                    //流星拳
+                    isShowStar: false,
+                    angle: null,
+                    animationTime: null,
+                    transformX: null,
+                    transformY: null,
+
+                    // 长按
+                    holdTouchId: null,
+                    isHoldTouch: false,
+
+                    //
+                    startX: null,
+                    startY: null,
+                    endX: null,
+                    endY: null,
+
+                    //
+                    isShowChangeTime: false,
+                }
+            },
+
+            computed: {
+                // app样式
+                appStyle() {
+                    let type = this.isMobile ?'m' :'pc',
+                    hour = new Date().getHours(),
+                    url = `./image/${ type }/${hour}.jpg`
+
+                    return `background-image: url(${url});`
+                },
+
+                // 流星样式
+                starStyle(){
+                    let x = this.transformX, y = this.transformY
+                    return `transform: translate(${x}px, ${y}px) rotateZ(${180-this.angle}deg); transition-duration: ${this.animationTime}s`
+                },
+            },
+
+            methods: {
+
+                //改变秒
+                changeSecond() {
+
+                    let ds = this.diffTiem - this.index,
+                        ac = Math.floor(ds % 60),
+                        next = ac == 0 ? 59 : ac - 1
+
+                    let parentDom = $('#second_box')
+
+                    parentDom.attr('data-text', next)
+                    parentDom.append(`<span class="animation-el">${ac}</span>`)
+
+                    parentDom.find('span').animate(
+                        {
+                            'bottom': '-20vh',
+                            'opacity': '0'
+                        },
+                        1000,
+                        'swing',
+                        () => {
+                            parentDom.find('span').remove()
+                            this.loop()
+
+                            if( ac == 1 ) this.changeMinute()
+                        })
+                },
+
+                //改变分钟
+                changeMinute( init ) {
+
+                    let ds = this.diffTiem - this.index,
+                        ac = Math.floor((ds / 60) % 60),
+                        next = ac == 0 ? 59 : ac - 1
+
+                    let parentDom = $('#minute_box')
+
+                    //不执行动画，则初始化
+                    if( init ){
+                        parentDom.attr('data-text', next)
+                        parentDom.append(`<span class="animation-el">${ac}</span>`)
+
+                        parentDom.removeClass('show-after')
+
+                        return
+                    }
+
+                    parentDom.find('span').animate(
+                        {
+                            'bottom': '-20vh',
+                            'opacity': '0'
+                        },
+                        1000,
+                        'swing',
+                        () => {
+                            parentDom.find('span').remove()
+
+                            this.changeMinute(true)
+
+                            if( ac == 1 ) this.changeHour()
+                        }
+                    )
+
+                    parentDom.addClass('show-after')
+                },
+
+                //
+                changeHour( init ) {
+
+                    let ds = this.diffTiem - this.index,
+                        ac = Math.floor((ds / 60 / 60) % 24),
+                        next = ac == 0 ? 59 : ac - 1
+
+                    let parentDom = $('#hour_box')
+
+                    //不执行动画，则初始化
+                    if( init ){
+                        parentDom.attr('data-text', next)
+                        parentDom.append(`<span class="animation-el">${ac}</span>`)
+
+                        parentDom.removeClass('show-after')
+
+                        return
+                    }
+
+
+                    parentDom.find('span').animate(
+                        {
+                            'bottom': '-20vh',
+                            'opacity': '0'
+                        },
+                        1000,
+                        'swing',
+                        () => {
+                            parentDom.find('span').remove()
+
+                            this.changeHour(true)
+
+                        }
+                    )
+                    parentDom.addClass('show-after')
+                },
+
+                changeDay() {
+
+                    let ds = this.diffTiem - this.index,
+                        ac = Math.floor( ds / (60 * 60 * 24) ),
+                        next = ac == 0 ? 59 : ac - 1
+
+                    $('#day').text( ac )
+                },
+
+                loop() {
+                    this.index++
+                    this.changeSecond()
+                },
+
+                mousedownEv($event){
+
+                    this.startX = $event.x || event.targetTouches[0].clientX
+                    this.startY = $event.y || event.targetTouches[0].clientY
+
+                    this.holdTouchId = setTimeout(() => {
+                        console.log( '长按' )
+                        this.isHoldTouch = true
+                    }, 300);
+                },
+
+                mousemoveEv($event){
+
+                    this.isMoveIng = true
+
+                    clearTimeout(this.holdTouchId)
+
+                    this.endX = $event.x || event.targetTouches[0].clientX
+                    this.endY = $event.y || event.targetTouches[0].clientY
+                },
+
+                mouseupEv($event){
+
+                    clearTimeout(this.holdTouchId)
+
+                    //不是长按则执行流星动画
+                    !this.isHoldTouch && !this.isShowStar && this.setAnimationToShootingStar()
+
+                    this.isMoveIng = false
+                    this.isHoldTouch = false
+
+                },
+
+                //设置流星动画
+                setAnimationToShootingStar(){
+
+
+                    //计算旋转角度
+                    let angle = Math.round(Math.atan( (this.endX-this.startX)/(this.endY-this.startY) ) * 180 / Math.PI)
+                    angle = this.endY < this.startY ?angle + 180 : angle
+
+                    if( isNaN(angle) ) return
+
+                    this.isShowStar = true
+                    this.angle = angle
+
+                    //计算2点距离，计算执行时间
+                    let dx = Math.abs(this.endX-this.startX);
+                    let dy = Math.abs(this.endY-this.startY);
+                    let dis = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
+
+                    this.animationTime = dis / document.documentElement.clientHeight
+
+                    let temporaryX = this.endX, temporaryY= this.endY
+
+                    this.transformX = this.startX
+                    this.transformY = this.startY
+
+                    this.$nextTick(()=>{
+
+                        setTimeout(() => {
+                            this.transformX = temporaryX
+                            this.transformY = temporaryY
+
+                            this.$nextTick(()=>{
+                                setTimeout(() => {
+                                    this.isShowStar = false
+                                }, this.animationTime * 1000);
+                            })
+                        }, 50);
+
+                    })
+
+                },
+            },
+
+            mounted() {
+
+                //时间差距（秒）
+                let diffTiem = new Date(this.endTime).getTime() - new Date().getTime()
+
+                this.diffTiem = diffTiem / 1000
+
+                this.changeDay()
+                this.changeHour(true)
+                this.changeMinute(true)
+                this.changeSecond()
+            },
+
+
+            created() {
+
+                //判断设备
+                this.isMobile = navigator.userAgent.match(
+                    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+                )
+                    ? true
+                    : false;
+
+                this.isMobile && (document.documentElement.style.fontSize = 'calc( 100vw / 7.5 )')
+            },
+        });
+    </script>
+
+</body>
+
+</html>
